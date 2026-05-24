@@ -21,17 +21,17 @@ export default async function handler(req, res) {
     if (temInternacional) {
       opcoesFrete = [
         {
-          name: "Entrega Internacional",
-          service: "Internacional",
+          name: "Transportadora - 12 a 22 dias",
+          service: "Transportadora",
           price: 0,
-          days: 20,
+          days: 22,
           quote_id: 1
         }
       ];
     } else if (temCustomizado) {
       opcoesFrete = [
         {
-          name: "Entrega Personalizada",
+          name: "Entrega Personalizada - 15 a 25 dias",
           service: "Personalizada",
           price: 0,
           days: 25,
@@ -39,22 +39,7 @@ export default async function handler(req, res) {
         }
       ];
     } else {
-      opcoesFrete = [
-        {
-          name: "SEDEX",
-          service: "SEDEX",
-          price: 0,
-          days: 6,
-          quote_id: 1
-        },
-        {
-          name: "Expresso",
-          service: "Expresso",
-          price: 0,
-          days: 8,
-          quote_id: 2
-        }
-      ];
+      opcoesFrete = [];
     }
 
     return res.status(200).json({ quotes: opcoesFrete });
