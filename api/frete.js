@@ -1,25 +1,33 @@
+// =============================================
+// ✏️ ADICIONE IDs DE PRODUTOS AQUI
+// Para adicionar novo produto: coloque a vírgula e o número
+// Exemplo: [44922448, 99999999, 88888888]
+// =============================================
+const produtosInternacionais = [
+  44922448, // Pulseira Berloque
+  45159144, // Fone de ouvido argola
+];
+
+const produtosCustomizados = [
+  // Ex: 12345678, // Nome do produto
+];
+// =============================================
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Método não permitido' });
   }
   try {
     const body = req.body;
-    
-    // Log para ver o que a Yampi envia
-    console.log('BODY COMPLETO:', JSON.stringify(body));
-    
-    const produtos = body.products || body.items || [];
-    console.log('PRODUTOS:', JSON.stringify(produtos));
+    const skus = body.skus || [];
 
-    const temInternacional = produtos.some(produto => {
-      const termos = produto.search_terms || produto.tags || '';
-      return termos.toLowerCase().includes('internacional');
-    });
+    const temInternacional = skus.some(sku =>
+      produtosInternacionais.includes(sku.product_id)
+    );
 
-    const temCustomizado = produtos.some(produto => {
-      const termos = produto.search_terms || produto.tags || '';
-      return termos.toLowerCase().includes('customizado');
-    });
+    const temCustomizado = skus.some(sku =>
+      produtosCustomizados.includes(sku.product_id)
+    );
 
     let opcoesFrete = [];
 
