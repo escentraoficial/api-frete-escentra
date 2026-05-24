@@ -4,7 +4,12 @@ export default async function handler(req, res) {
   }
   try {
     const body = req.body;
+    
+    // Log para ver o que a Yampi envia
+    console.log('BODY COMPLETO:', JSON.stringify(body));
+    
     const produtos = body.products || body.items || [];
+    console.log('PRODUTOS:', JSON.stringify(produtos));
 
     const temInternacional = produtos.some(produto => {
       const termos = produto.search_terms || produto.tags || '';
