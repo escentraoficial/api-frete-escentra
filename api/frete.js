@@ -2,19 +2,18 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Método não permitido' });
   }
-
   try {
     const body = req.body;
     const produtos = body.products || body.items || [];
 
     const temInternacional = produtos.some(produto => {
-      const tags = produto.tags || '';
-      return tags.toLowerCase().includes('internacional');
+      const termos = produto.search_terms || produto.tags || '';
+      return termos.toLowerCase().includes('internacional');
     });
 
     const temCustomizado = produtos.some(produto => {
-      const tags = produto.tags || '';
-      return tags.toLowerCase().includes('customizado');
+      const termos = produto.search_terms || produto.tags || '';
+      return termos.toLowerCase().includes('customizado');
     });
 
     let opcoesFrete = [];
